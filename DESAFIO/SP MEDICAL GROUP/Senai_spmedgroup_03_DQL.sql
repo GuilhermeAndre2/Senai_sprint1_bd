@@ -10,6 +10,34 @@ Select * FROM Situação;
 Select * FROM TipoUsuario;
 Select * FROM Usuario;
 
+Alter Table Clinicas Add HorarioAbertura TIME
+Alter Table Clinicas Add HorarioFechamento TIME
+
+UPDATE Clinicas
+SET HorarioFechamento = '22:00:00'
+WHERE Clinicas.IdClinica = 1  
+
+UPDATE Clinicas
+SET HorarioFechamento = '22:00:00'
+WHERE Clinicas.IdClinica = 2
+
+UPDATE Clinicas
+SET HorarioFechamento = '22:00:00'
+WHERE Clinicas.IdClinica = 3
+
+UPDATE Clinicas
+SET HorarioAbertura = '08:30:00'
+WHERE Clinicas.IdClinica = 1  
+
+UPDATE Clinicas
+SET HorarioAbertura = '08:30:00'
+WHERE Clinicas.IdClinica = 2
+
+UPDATE Clinicas
+SET HorarioAbertura = '08:30:00'
+WHERE Clinicas.IdClinica = 3
+
+
 --------------------------------------------------------------
 
 ---- AQUI O ADMINISTRADOR MOSTRA OS DADOS DA CLINICA  ----
@@ -17,6 +45,11 @@ Select * FROM Usuario;
 Select * FROM Clinicas;
 
 --------------------------------------------------------------
+----------------------------LOGIN BASICO-----------------------------------------------;
+SELECT TipoUsuario AS TipoUsuario, Email AS Email, Senha AS Senhas FROM Usuario
+INNER JOIN TipoUsuario
+ON Usuario.idTipoUsuario = TipoUsuario.idTipoUsuario
+WHERE email = 'fernando@gmail.com' AND senha = 'I789';
 
 ----AQUI ESTÁ TODAS AS CONSULTAS COM NOMES DOS PACIENTES------
 
@@ -124,4 +157,26 @@ ON Consultas.IdMedico = Medico.IdMedico
 INNER JOIN Especialidades
 ON Medico.IdEspecialidade = Especialidades.IdEspecialidade
 Where Medico.NomeMedico = 'Ricardo Lemos' 
+
+--AQUI FOI RETORNADO O NUMERO DE USUARIOS QUE EXISTEM-----
+
+SELECT COUNT (Usuario.Idusuario) as QUANTIDADE_DE_USUARIOS FROM Usuario
+
+-------------------------------------------------------------------------
+
+--DATA DE NASCIMENTO DOS USUARIOS CONVERTIDAS PARA (MM-DD-YYYY) USA
+SELECT CONVERT(VARCHAR,DataNascimento,110) AS DATA_NASCIMENTO_FORMATADA FROM Usuario
+
+-------------------------------------------------------------------------
+
+--AQUI FOI RETORNADO O MEDICO POR ESPECIALIDADE QUE EXISTEM-----
+SELECT COUNT(Medico.IdMedico) as QNT_POR_ESPECIALIDADE, Especialidades.Especialidade --COLUNAS
+FROM Medico -- TABELA
+INNER JOIN Especialidades -- TABELA PARA O JOIN
+ON  Especialidades.IdEspecialidade = Medico.IdEspecialidade -- RELAÇÃO ENTRE TABELAS, ONDE SEJA IGUAL O ID DA ESPECIALIDADE E O ID DA ESPECIALIDADE DENTRO DA TABELA MEDICOS 
+GROUP BY Especialidades.IdEspecialidade, Especialidades.Especialidade;
+
+-------------------------------------------------------------------------
+
+
 
